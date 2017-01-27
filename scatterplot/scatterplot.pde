@@ -67,7 +67,8 @@ final static int LINE_HEIGHT = 12;
 final static int LEGENDS_SHAPE_SIZE = 10;
 final static int LEGENDS_OFFSET_X = 728;
 final static int OPTIONS_OFFSET_Y = 516;
-final static int FILTERS_OFFSET_X = 266;
+final static int OPTIONS_CONTENT_OFFSET_X = 80;
+final static int FILTERS_OFFSET_X = 266+58;
 
 // Components
 PFont fRegular;
@@ -147,34 +148,34 @@ void setup() {
 
   // Add mapping dropdowns
   rSize = cp5.addRange("Mark size")
-    .setPosition(140, OPTIONS_OFFSET_Y + 160)
-    .setWidth(100)
+    .setPosition(OPTIONS_CONTENT_OFFSET_X + 140, OPTIONS_OFFSET_Y + 160)
+    .setWidth(128)
     .setHeight(18)
     .setDecimalPrecision(0)
     .setRange(SIZE_MIN, SIZE_MAX)
     .setLowValue(SIZE_DEFAULT)
     .setColorCaptionLabel(cOptionsBG);
   sclSize = cp5.addScrollableList("Size")
-    .setPosition(140, OPTIONS_OFFSET_Y + 136);
+    .setPosition(OPTIONS_CONTENT_OFFSET_X + 140, OPTIONS_OFFSET_Y + 136);
   customizeMappingList(sclSize, dataDimensions, 4);
   sclShape = cp5.addScrollableList("Shape")
-    .setPosition(140, OPTIONS_OFFSET_Y + 112);
+    .setPosition(OPTIONS_CONTENT_OFFSET_X + 140, OPTIONS_OFFSET_Y + 112);
   customizeMappingList(sclShape, dataDimensions, 5);
   sclColour = cp5.addScrollableList("Colour")
-    .setPosition(140, OPTIONS_OFFSET_Y + 88);
+    .setPosition(OPTIONS_CONTENT_OFFSET_X + 140, OPTIONS_OFFSET_Y + 88);
   customizeMappingList(sclColour, dataDimensions, 3);
   sclYAxis = cp5.addScrollableList("y-axis")
-    .setPosition(140, OPTIONS_OFFSET_Y + 64);
+    .setPosition(OPTIONS_CONTENT_OFFSET_X + 140, OPTIONS_OFFSET_Y + 64);
   customizeMappingList(sclYAxis, dataDimensions, 2);
   sclXAxis = cp5.addScrollableList("x-axis")
-    .setPosition(140, OPTIONS_OFFSET_Y + 40);
+    .setPosition(OPTIONS_CONTENT_OFFSET_X + 140, OPTIONS_OFFSET_Y + 40);
   customizeMappingList(sclXAxis, dataDimensions, 1);
 
   // Add filters controls
   rData = new Range[NUMERICAL_ATTRIBUTES];
   for (i = 0; i < rData.length; i++) {
     rData[i] = cp5.addRange("data" + i)
-      .setPosition(FILTERS_OFFSET_X + 130, OPTIONS_OFFSET_Y + 40 + (24 * i));
+      .setPosition(OPTIONS_CONTENT_OFFSET_X + FILTERS_OFFSET_X + 130, OPTIONS_OFFSET_Y + 40 + (24 * i));
     customizeNumberRange(rData[i], floor(dataMin[i]), ceil(dataMax[i]));
   }
 
@@ -183,7 +184,7 @@ void setup() {
   togSpecies = new Toggle[dataSpecies.length];
   for (i = 0; i < dataSpecies.length; i++) {
     togSpecies[i] = cp5.addToggle(dataSpecies[i])
-      .setPosition(FILTERS_OFFSET_X + (48 + 6) * i, OPTIONS_OFFSET_Y + 136)
+      .setPosition(OPTIONS_CONTENT_OFFSET_X + FILTERS_OFFSET_X + (48 + 6) * i, OPTIONS_OFFSET_Y + 136)
       .setSize(48, 18)
       .setValue(true);
   }
@@ -206,11 +207,11 @@ void customizeMappingList(ScrollableList scl, String[] items, int defaultIndex) 
     .setItemHeight(18)
     .setBackgroundColor(color(#002D5A))
     .setValue(defaultIndex)
-    .setSize(100, (int)(height - scl.getPosition()[1]));
+    .setSize(128, (int)(height - scl.getPosition()[1]));
 }
 
 void customizeNumberRange(Range r, int dataMin, int dataMax) {
-  r.setWidth(160)
+  r.setWidth(172)
     .setHeight(18)
     .setDecimalPrecision(1)
     .setRange(dataMin, dataMax)
@@ -771,22 +772,22 @@ void drawOptions() {
     fill(color(255));
     textAlign(LEFT);
     textFont(fBold, 12);
-    text("Mapping", 24, 18 + LINE_HEIGHT);
+    text("Mapping", OPTIONS_CONTENT_OFFSET_X + 24, 18 + LINE_HEIGHT);
     textFont(fRegular, 12);
-    text("x-axis", 24, 42 + LINE_HEIGHT);
-    text("y-axis", 24, 64 + LINE_HEIGHT);
-    text("Colour", 24, 86 + LINE_HEIGHT);
-    text("Shape", 24, 108 + LINE_HEIGHT);
-    text("Size", 24, 134 + LINE_HEIGHT);
-    text("Mark size", 24, 160 + LINE_HEIGHT);
+    text("x-axis", OPTIONS_CONTENT_OFFSET_X + 24, 42 + LINE_HEIGHT);
+    text("y-axis", OPTIONS_CONTENT_OFFSET_X + 24, 64 + LINE_HEIGHT);
+    text("Colour", OPTIONS_CONTENT_OFFSET_X + 24, 86 + LINE_HEIGHT);
+    text("Shape", OPTIONS_CONTENT_OFFSET_X + 24, 108 + LINE_HEIGHT);
+    text("Size", OPTIONS_CONTENT_OFFSET_X + 24, 134 + LINE_HEIGHT);
+    text("Mark size", OPTIONS_CONTENT_OFFSET_X + 24, 160 + LINE_HEIGHT);
     // Filters labels
     textFont(fBold, 12);
-    text("Filters", FILTERS_OFFSET_X, 18 + LINE_HEIGHT);
+    text("Filters", OPTIONS_CONTENT_OFFSET_X + FILTERS_OFFSET_X, 18 + LINE_HEIGHT);
     textFont(fRegular, 12);
-    text("Sepal Length range", FILTERS_OFFSET_X, 42 + LINE_HEIGHT);
-    text("Sepal Width range", FILTERS_OFFSET_X, 64 + LINE_HEIGHT);
-    text("Petal Length range", FILTERS_OFFSET_X, 86 + LINE_HEIGHT);
-    text("Petal Width range", FILTERS_OFFSET_X, 108 + LINE_HEIGHT);
+    text("Sepal Length range", OPTIONS_CONTENT_OFFSET_X + FILTERS_OFFSET_X, 42 + LINE_HEIGHT);
+    text("Sepal Width range", OPTIONS_CONTENT_OFFSET_X + FILTERS_OFFSET_X, 64 + LINE_HEIGHT);
+    text("Petal Length range", OPTIONS_CONTENT_OFFSET_X + FILTERS_OFFSET_X, 86 + LINE_HEIGHT);
+    text("Petal Width range", OPTIONS_CONTENT_OFFSET_X + FILTERS_OFFSET_X, 108 + LINE_HEIGHT);
   popStyle();
 }
 
